@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import com.mwaysolutions.barcode.zxing.PlanarYUVLuminanceSource;
-import com.mwaysolutions.barcode.zxing.PreferencesActivity;
 
 import java.io.IOException;
 
