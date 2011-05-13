@@ -280,7 +280,7 @@ public final class CameraManager {
         // Fortunately, it too has all the Y data up front, so we can read it.
         if ("yuv420p".equals(previewFormatString)) {
           return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top,
-              rect.width(), rect.height(), reverseImage);
+              rect.width(), rect.height(), false);
         }
     }
     throw new IllegalArgumentException("Unsupported picture format: " +
