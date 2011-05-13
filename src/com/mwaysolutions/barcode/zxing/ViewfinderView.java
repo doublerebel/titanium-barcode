@@ -18,9 +18,9 @@ package com.mwaysolutions.barcode.zxing;
 
 import com.google.zxing.ResultPoint;
 import com.mwaysolutions.barcode.camera.CameraManager;
+import com.mwaysolutions.barcode.constants.BarcodeColor;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -62,12 +62,11 @@ public final class ViewfinderView extends View {
 
     // Initialize these once for performance rather than calling them every time in onDraw().
     paint = new Paint();
-    Resources resources = getResources();
-    maskColor = resources.getColor(R.color.viewfinder_mask);
-    resultColor = resources.getColor(R.color.result_view);
-    frameColor = resources.getColor(R.color.viewfinder_frame);
-    laserColor = resources.getColor(R.color.viewfinder_laser);
-    resultPointColor = resources.getColor(R.color.possible_result_points);
+    maskColor = BarcodeColor.VIEWFINDER_MASK;
+    resultColor = BarcodeColor.RESULT_VIEW;
+    frameColor = BarcodeColor.VIEWFINDER_FRAME;
+    laserColor = BarcodeColor.VIEWFINDER_LASER;
+    resultPointColor = BarcodeColor.POSSIBLE_RESULT_POINTS;
     scannerAlpha = 0;
     possibleResultPoints = new AtomicReference<List<ResultPoint>>();
     lastPossibleResultPoints = new AtomicReference<List<ResultPoint>>();
