@@ -131,8 +131,6 @@ public final class CameraManager {
       configManager.initFromCameraParameters(camera);
     }
     configManager.setDesiredCameraParameters(camera);
-
-    }
   }
 
   /**
