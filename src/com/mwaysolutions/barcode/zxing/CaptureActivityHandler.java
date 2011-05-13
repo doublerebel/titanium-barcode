@@ -18,7 +18,8 @@ package com.google.zxing.client.android;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.google.zxing.client.android.camera.CameraManager;
+import com.mwaysolutions.barcode.camera.CameraManager;
+import com.mwaysolutions.barcode.TitaniumBarcodeActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,7 +41,7 @@ public final class CaptureActivityHandler extends Handler {
 
   private static final String TAG = CaptureActivityHandler.class.getSimpleName();
 
-  private final CaptureActivity activity;
+  private final TitaniumBarcodeActivity activity;
   private final DecodeThread decodeThread;
   private State state;
 
@@ -50,7 +51,7 @@ public final class CaptureActivityHandler extends Handler {
     DONE
   }
 
-  CaptureActivityHandler(CaptureActivity activity, Vector<BarcodeFormat> decodeFormats,
+  CaptureActivityHandler(TitaniumBarcodeActivity activity, Vector<BarcodeFormat> decodeFormats,
       String characterSet) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
