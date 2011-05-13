@@ -17,14 +17,12 @@
 package com.mwaysolutions.barcode.camera;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import com.mwaysolutions.barcode.zxing.PlanarYUVLuminanceSource;
@@ -134,9 +132,6 @@ public final class CameraManager {
     }
     configManager.setDesiredCameraParameters(camera);
 
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    if (prefs.getBoolean(PreferencesActivity.KEY_FRONT_LIGHT, false)) {
-      FlashlightManager.enableFlashlight();
     }
   }
 
