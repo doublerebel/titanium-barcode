@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.mwaysolutions.barcode.camera;
 
 import android.os.IBinder;
 import android.util.Log;
@@ -28,24 +28,23 @@ import java.lang.reflect.Method;
  * but, classes which allow access to this function still exist on some devices.
  * This therefore proceeds through a great deal of reflection.
  *
- * See <a href="http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/">
- * http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/</a> and
- * <a href="http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java">
- * http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java</a>.
+ * See http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/ and
+ * http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java .
+ * Thanks to Ryan Alford for pointing out the availability of this class.
  */
 final class FlashlightManager {
 
-  private static final String TAG = FlashlightManager.class.getName();
+  private static final String TAG = FlashlightManager.class.getSimpleName();
 
-  private static Object iHardwareService;
-  private static Method setFlashEnabledMethod;
+  private static final Object iHardwareService;
+  private static final Method setFlashEnabledMethod;
   static {
     iHardwareService = getHardwareService();
     setFlashEnabledMethod = getSetFlashEnabledMethod(iHardwareService);
     if (iHardwareService == null) {
-      Log.i(TAG, "This device does supports control of a flashlight");
+      Log.v(TAG, "This device does supports control of a flashlight");
     } else {
-      Log.i(TAG, "This device does not support control of a flashlight");
+      Log.v(TAG, "This device does not support control of a flashlight");
     }
   }
 
@@ -73,7 +72,8 @@ final class FlashlightManager {
       return null;
     }
 
-    Method asInterfaceMethod = maybeGetMethod(iHardwareServiceStubClass, "asInterface", IBinder.class);
+    Method asInterfaceMethod = maybeGetMethod(iHardwareServiceStubClass, "asInterface",
+        IBinder.class);
     if (asInterfaceMethod == null) {
       return null;
     }
