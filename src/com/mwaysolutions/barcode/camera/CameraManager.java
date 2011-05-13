@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera;
+package com.mwaysolutions.barcode.camera;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,8 +27,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import com.google.zxing.client.android.PlanarYUVLuminanceSource;
-import com.google.zxing.client.android.PreferencesActivity;
+import com.mwaysolutions.barcode.zxing.PlanarYUVLuminanceSource;
+import com.mwaysolutions.barcode.zxing.PreferencesActivity;
 
 import java.io.IOException;
 

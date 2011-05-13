@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera;
+package com.mwaysolutions.barcode.camera;
 
 import android.content.Context;
 import android.graphics.Point;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android;
+package com.mwaysolutions.barcode.zxing;
 
 import com.google.zxing.ResultPoint;
 import com.google.zxing.ResultPointCallback;
