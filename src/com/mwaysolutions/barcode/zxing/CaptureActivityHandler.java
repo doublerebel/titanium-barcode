@@ -52,8 +52,8 @@ public final class CaptureActivityHandler extends Handler {
     DONE
   }
 
-  CaptureActivityHandler(TitaniumBarcodeActivity activity, Vector<BarcodeFormat> decodeFormats,
-      String characterSet) {
+  public CaptureActivityHandler(TitaniumBarcodeActivity activity, Vector<BarcodeFormat> decodeFormats,
+      String characterSet, boolean beginScanning) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
         new ViewfinderResultPointCallback(activity.getViewfinderView()));
@@ -62,7 +62,9 @@ public final class CaptureActivityHandler extends Handler {
 
     // Start ourselves capturing previews and decoding.
     CameraManager.get().startPreview();
-    restartPreviewAndDecode();
+    if (beginScanning) {
+        restartPreviewAndDecode();
+    }
   }
 
   @Override

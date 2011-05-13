@@ -57,8 +57,8 @@ public final class ViewfinderView extends View {
   private final AtomicReference<List<ResultPoint>> lastPossibleResultPoints;
 
   // This constructor is used when the class is built from an XML resource.
-  public ViewfinderView(Context context, AttributeSet attrs) {
-    super(context, attrs);
+  public ViewfinderView(Context context) {
+    super(context);
 
     // Initialize these once for performance rather than calling them every time in onDraw().
     paint = new Paint();
