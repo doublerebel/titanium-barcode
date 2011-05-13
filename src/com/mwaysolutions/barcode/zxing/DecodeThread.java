@@ -16,6 +16,8 @@
 
 package com.mwaysolutions.barcode.zxing;
 
+import com.mwaysolutions.barcode.TitaniumBarcodeActivity;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
