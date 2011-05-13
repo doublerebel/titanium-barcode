@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.google.zxing.client.android;
 
 /**
  * This class provides the constants to use when sending an Intent to Barcode Scanner.
@@ -75,6 +75,11 @@ public final class Intents {
     public static final String QR_CODE_MODE = "QR_CODE_MODE";
 
     /**
+     * Decode only Data Matrix codes.
+     */
+    public static final String DATA_MATRIX_MODE = "DATA_MATRIX_MODE";
+
+    /**
      * If a barcode is found, Barcodes returns RESULT_OK to onActivityResult() of the app which
      * requested the scan via startSubActivity(). The barcodes contents can be retrieved with
      * intent.getStringExtra(RESULT). If the user presses Back, the result code will be
@@ -87,6 +92,17 @@ public final class Intents {
      * See Contents.Format for possible values.
      */
     public static final String RESULT_FORMAT = "SCAN_RESULT_FORMAT";
+
+    /**
+     * Call intent.getByteArrayExtra(RESULT_BYTES) to get a {@link byte[]} of raw bytes in the
+     * barcode, if available.
+     */
+    public static final String RESULT_BYTES = "SCAN_RESULT_BYTES";
+
+    /**
+     * Setting this to false will not save scanned codes in the history.
+     */
+    public static final String SAVE_HISTORY = "SAVE_HISTORY";
 
     private Scan() {
     }
@@ -117,7 +133,7 @@ public final class Intents {
      * it defaults to QR Code. Use Intent.putExtra(FORMAT, format), where
      * format is one of Contents.Format. 
      */
-    public static final String FORMAT = "com.google.zxing.client.android.ENCODE_FORMAT";
+    public static final String FORMAT = "ENCODE_FORMAT";
 
     private Encode() {
     }
@@ -142,6 +158,32 @@ public final class Intents {
     private SearchBookContents() {
     }
   }
+
+  public static final class WifiConnect {
+	    /**
+	     * Internal intent used to trigger connection to a wi-fi network.
+	     */
+	    public static final String ACTION = "com.google.zxing.client.android.WIFI_CONNECT";
+
+	    /**
+	     * The network to connect to, all the configuration provided here.
+	     */
+	    public static final String SSID = "SSID";
+
+	    /**
+	     * The network to connect to, all the configuration provided here.
+	     */
+	    public static final String TYPE = "TYPE";
+
+	    /**
+	     * The network to connect to, all the configuration provided here.
+	     */
+	    public static final String PASSWORD = "PASSWORD";
+
+	    private WifiConnect() {
+	    }
+	  }
+
 
   public static final class Share {
     /**

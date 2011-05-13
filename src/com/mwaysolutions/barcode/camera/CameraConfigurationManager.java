@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.camera;
+package com.google.zxing.client.android.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -29,9 +29,7 @@ import java.util.regex.Pattern;
 final class CameraConfigurationManager {
 
   private static final String TAG = CameraConfigurationManager.class.getSimpleName();
-
   private static final int TEN_DESIRED_ZOOM = 27;
-
   private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
   private final Context context;
@@ -57,7 +55,7 @@ final class CameraConfigurationManager {
     screenResolution = new Point(display.getWidth(), display.getHeight());
     Log.d(TAG, "Screen resolution: " + screenResolution);
     cameraResolution = getCameraResolution(parameters, screenResolution);
-    Log.d(TAG, "Camera resolution: " + screenResolution);
+    Log.d(TAG, "Camera resolution: " + cameraResolution);
   }
 
   /**
@@ -72,7 +70,6 @@ final class CameraConfigurationManager {
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     setFlash(parameters);
     setZoom(parameters);
-    //setSharpness(parameters);
     camera.setParameters(parameters);
   }
 
@@ -117,7 +114,7 @@ final class CameraConfigurationManager {
     return cameraResolution;
   }
 
-  private static Point findBestPreviewSizeValue(String previewSizeValueString,
+  private static Point findBestPreviewSizeValue(CharSequence previewSizeValueString,
       Point screenResolution) {
     int bestX = 0;
     int bestY = 0;
@@ -179,11 +176,9 @@ final class CameraConfigurationManager {
   }
 
   private void setFlash(Camera.Parameters parameters) {
-    // FIXME: This is a hack to turn the flash off on the Samsung Galaxy.
-    // And this is a hack-hack to work around a different value on the Behold II
-    // Restrict Behold II check to Cupcake, per Samsung's advice
-    if (Build.MODEL.contains("Behold II") &&
-        CameraManager.SDK_INT == Build.VERSION_CODES.CUPCAKE) {
+    // FIXME: This is a hack to turn the flash off on the Samsung Galaxy and the Behold II
+    // as advised by Samsung, neither of which respected the official parameter.
+    if (Build.MODEL.contains("Behold II") && CameraManager.SDK_INT == 3) { // 3 = Cupcake
       parameters.set("flash-value", 1);
     } else {
       parameters.set("flash-value", 2);
