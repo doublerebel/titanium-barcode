@@ -120,6 +120,7 @@ public final class CameraManager {
   public void openDriver(SurfaceHolder holder) throws IOException {
     if (camera == null) {
       camera = Camera.open();
+      //camera.setDisplayOrientation(90);
       if (camera == null) {
         throw new IOException();
       }
@@ -137,7 +138,7 @@ public final class CameraManager {
    */
   public void closeDriver() {
     if (camera != null) {
-      FlashlightManager.disableFlashlight();
+//      FlashlightManager.disableFlashlight();
       camera.release();
       camera = null;
     }

@@ -106,8 +106,8 @@ public final class ViewfinderView extends View {
       paint.setColor(laserColor);
       paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
       scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
-      int middle = frame.height() / 2 + frame.top;
-      canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
+      int middle = frame.width() / 2 + frame.left;
+      canvas.drawRect(middle - 1, frame.top - 1, middle + 2, frame.bottom - 1, paint);
       
       Rect previewFrame = CameraManager.get().getFramingRectInPreview();
       float scaleX = frame.width() / (float) previewFrame.width();

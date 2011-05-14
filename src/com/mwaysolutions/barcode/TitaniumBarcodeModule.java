@@ -69,8 +69,8 @@ public class TitaniumBarcodeModule extends KrollModule {
 		final Activity activity = invocation.getTiContext().getActivity();
 		final TiActivitySupport activitySupport = (TiActivitySupport) activity;
 
-		final TiIntentWrapper barcodeIntent = new TiIntentWrapper(new Intent());
-        barcodeIntent.getIntent().setClass(invocation.getTiContext().getAndroidContext().getBaseContext(), TitaniumBarcodeActivity.class);
+		final TiIntentWrapper barcodeIntent = new TiIntentWrapper(new Intent(activity, TitaniumBarcodeActivity.class));
+        //barcodeIntent.getIntent().setClass(invocation.getTiContext().getAndroidContext().getBaseContext(), TitaniumBarcodeActivity.class);
 		barcodeIntent.setWindowId(TiIntentWrapper.createActivityName("SCANNER"));
 
 		BarcodeResultHandler resultHandler = new BarcodeResultHandler();

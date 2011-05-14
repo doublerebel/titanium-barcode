@@ -197,31 +197,32 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		}
 
 		Intent intent = getIntent();
-		String action = intent == null ? null : intent.getAction();
+		//String action = intent == null ? null : intent.getAction();
 
-		if (intent != null && action != null) {
-			if (action.equals(Intents.Scan.ACTION)) {
+		//if (intent != null && action != null) {
+		//	if (action.equals(Intents.Scan.ACTION)) {
 				// Scan the formats the intent requested, and return the result
 				// to the calling activity.
 				source = Source.NATIVE_APP_INTENT;
 				decodeFormats = parseDecodeFormats(intent);
 				resetStatusView();
-			} else {
-				// Scan all formats and handle the results ourselves (launched
-				// from Home).
-				source = Source.NONE;
-				decodeFormats = null;
-				resetStatusView();
-			}
-			characterSet = intent.getStringExtra(Intents.Scan.CHARACTER_SET);
-		} else {
-			source = Source.NONE;
-			decodeFormats = null;
-			characterSet = null;
-			if (lastResult == null) {
-				resetStatusView();
-			}
-		}
+//			} else {
+//				// Scan all formats and handle the results ourselves (launched
+//				// from Home).
+//                Log.d(TAG, "handling results selfishly");
+//				source = Source.NONE;
+//				decodeFormats = null;
+//				resetStatusView();
+//			}
+//			characterSet = intent.getStringExtra(Intents.Scan.CHARACTER_SET);
+//		} else {
+//			source = Source.NONE;
+//			decodeFormats = null;
+//			characterSet = null;
+//			if (lastResult == null) {
+//				resetStatusView();
+//			}
+//		}
 
 	}
 
