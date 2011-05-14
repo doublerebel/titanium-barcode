@@ -118,7 +118,9 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	private CaptureView captureView;
     
     private TiViewProxy localOverlayProxy = null;
+    
     public static TiViewProxy overlayProxy = null;
+    public static TitaniumBarcodeActivity tiBarcodeActivity = null;
 
 	/**
 	 * @return current viewfinderView
@@ -149,14 +151,14 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		captureView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		
+        Log.d(TAG, "overlayProxy: " + overlayProxy);
         // set preview overlay
 		localOverlayProxy = overlayProxy;
 		overlayProxy = null; // clear the static object once we have a local reference
+        Log.d(TAG, "localOverlayProxy: " + localOverlayProxy);
         
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(captureView);
-        
-        captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
 		CameraManager.init(getApplication());
 		viewfinderView = captureView.getViewfinderView();
@@ -173,8 +175,12 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	protected void onResume() {
 		super.onResume();
 
-		captureView.addView(viewfinderView);
-		captureView.addView(localOverlayProxy.getView(this).getNativeView());
+		tiBarcodeActivity = this;
+        //captureView.addView(viewfinderView);
+        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy);
+        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy.getView(this));
+        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy.getView(this).getNativeView());
+		captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         
         SurfaceView surfaceView = captureView.getPreviewView();
 		SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -250,7 +256,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
-        captureView.removeView(viewfinderView);
+        //captureView.removeView(viewfinderView);
 		captureView.removeView(localOverlayProxy.getView(this).getNativeView());
 
 		if (mHandler != null) {
@@ -258,14 +264,15 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 			mHandler = null;
 		}
 		CameraManager.get().closeDriver();
+        tiBarcodeActivity = null;
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (source == Source.NATIVE_APP_INTENT) {
-				setResult(RESULT_CANCELED);
-				finish();
+				tiBarcodeActivity.setResult(RESULT_CANCELED);
+				tiBarcodeActivity.finish();
 				return true;
 			} else if ((source == Source.NONE) && lastResult != null) {
 				resetStatusView();
@@ -366,15 +373,15 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		ResultHandler resultHandler = new ResultHandler(rawResult);
 		CharSequence displayContents = resultHandler.getDisplayContents();
 		Log.i(TAG, "Got return value: " + displayContents.toString());
-		fireSucessCallback(displayContents.toString());
+		fireSuccessCallback(displayContents.toString());
 	}
 
-	private void fireSucessCallback(String scanResult) {
+	private void fireSuccessCallback(String scanResult) {
 		Intent intent = new Intent();
 		intent.putExtra(EXTRA_RESULT, scanResult);
-		setResult(Activity.RESULT_OK, intent);
+		tiBarcodeActivity.setResult(Activity.RESULT_OK, intent);
 		Log.i(TAG, "Set result, finish()");
-		finish();
+		tiBarcodeActivity.finish();
 	}
 
 	private void initCamera(final SurfaceHolder surfaceHolder) {
@@ -405,7 +412,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		builder.setPositiveButton(BarcodeString.BUTTON_OK,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialogInterface, int i) {
-						finish();
+						tiBarcodeActivity.finish();
 					}
 				});
 		builder.show();

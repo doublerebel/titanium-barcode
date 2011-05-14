@@ -48,8 +48,8 @@ public class TitaniumBarcodeModule extends KrollModule {
 	private static final boolean DBG = true; // TiConfig.LOGD;
 	protected static final int UNKNOWN_ERROR = 0;
 
-	public TitaniumBarcodeModule(final TiContext context) {
-		super(context);
+	public TitaniumBarcodeModule(final TiContext tiContext) {
+		super(tiContext);
 	}
 
 	@Kroll.method
@@ -117,21 +117,23 @@ public class TitaniumBarcodeModule extends KrollModule {
 		protected TiActivitySupport activitySupport;
 		protected Intent barcodeIntent;
 
-		public void run() {
+		@Override
+        public void run() {
 			code = activitySupport.getUniqueResultCode();
 			activitySupport.launchActivityForResult(barcodeIntent, code, this);
 		}
 
-		public void onError(Activity activity, int requestCode, Exception e) {
+		@Override
+        public void onError(Activity activity, int requestCode, Exception e) {
 			String msg = "Problem with scanner; " + e.getMessage();
 			logError("error: " + msg);
 			if (errorCallback != null) {
-				errorCallback
-						.callAsync(createErrorResponse(UNKNOWN_ERROR, msg));
+				errorCallback.callAsync(createErrorResponse(UNKNOWN_ERROR, msg));
 			}
 		}
 
-		public void onResult(Activity activity, int requestCode,
+		@Override
+        public void onResult(Activity activity, int requestCode,
 				int resultCode, Intent data) {
 			logDebug("onResult() called");
 
@@ -142,8 +144,7 @@ public class TitaniumBarcodeModule extends KrollModule {
 				}
 			} else {
 				logDebug("scan successful");
-				String result = data
-						.getStringExtra(TitaniumBarcodeActivity.EXTRA_RESULT);
+				String result = data.getStringExtra(TitaniumBarcodeActivity.EXTRA_RESULT);
 				logDebug("scan result: " + result);
 				successCallback.callAsync(getDictForResult(result));
 			}
