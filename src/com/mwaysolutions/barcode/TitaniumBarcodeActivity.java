@@ -38,6 +38,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -51,6 +52,7 @@ import android.view.SurfaceView;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -115,8 +117,8 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	private String characterSet;
 	private CaptureView captureView;
     
+    private TiViewProxy localOverlayProxy = null;
     public static TiViewProxy overlayProxy = null;
-	public static TiCameraActivity cameraActivity = null;
 
 	/**
 	 * @return current viewfinderView
