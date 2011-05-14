@@ -60,6 +60,10 @@ public class TitaniumBarcodeModule extends KrollModule {
 		final KrollCallback errorCallback = getCallback(options, "error");
 
 		logDebug("launchScanActivity() called");
+        
+        if (options.containsKey("overlay")) {
+			TitaniumBarcodeActivity.overlayProxy = (TiViewProxy) options.get("overlay");
+		}
 
 		final Activity activity = invocation.getTiContext().getActivity();
 		final TiActivitySupport activitySupport = (TiActivitySupport) activity;

@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
+import org.appcelerator.titanium.TiBaseActivity;
+import org.appcelerator.titanium.proxy.TiViewProxy;
+
 import com.mwaysolutions.barcode.camera.CameraManager;
 import com.mwaysolutions.barcode.constants.BarcodeColor;
 import com.mwaysolutions.barcode.constants.BarcodeString;
@@ -61,7 +64,7 @@ import com.google.zxing.ResultPoint;
  * @author sven@roothausen.de(Sven Pfleiderer)
  */
 
-public final class TitaniumBarcodeActivity extends Activity implements
+public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		SurfaceHolder.Callback {
 
 	public static final String EXTRA_RESULT = "scanResult";
@@ -111,6 +114,9 @@ public final class TitaniumBarcodeActivity extends Activity implements
 	private Vector<BarcodeFormat> decodeFormats;
 	private String characterSet;
 	private CaptureView captureView;
+    
+    public static TiViewProxy overlayProxy = null;
+	public static TiCameraActivity cameraActivity = null;
 
 	/**
 	 * @return current viewfinderView
@@ -132,18 +138,27 @@ public final class TitaniumBarcodeActivity extends Activity implements
 	 */
 
 	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
 		Window window = getWindow();
 		window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		captureView = new CaptureView(this);
 		captureView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
-		setContentView(captureView);
+		
+        // set preview overlay
+		localOverlayProxy = overlayProxy;
+		overlayProxy = null; // clear the static object once we have a local reference
+        
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(captureView);
+        
+        captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 
 		CameraManager.init(getApplication());
 		viewfinderView = captureView.getViewfinderView();
+
 		lastResult = null;
 		hasSurface = false;
 	}
@@ -156,7 +171,10 @@ public final class TitaniumBarcodeActivity extends Activity implements
 	protected void onResume() {
 		super.onResume();
 
-		SurfaceView surfaceView = captureView.getPreviewView();
+		captureView.addView(viewfinderView);
+		captureView.addView(localOverlayProxy.getView(this).getNativeView());
+        
+        SurfaceView surfaceView = captureView.getPreviewView();
 		SurfaceHolder surfaceHolder = surfaceView.getHolder();
 		if (hasSurface) {
 			// The activity was paused but not stopped, so the surface still
@@ -230,6 +248,9 @@ public final class TitaniumBarcodeActivity extends Activity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
+        captureView.removeView(viewfinderView);
+		captureView.removeView(localOverlayProxy.getView(this).getNativeView());
+
 		if (mHandler != null) {
 			mHandler.quitSynchronously();
 			mHandler = null;
