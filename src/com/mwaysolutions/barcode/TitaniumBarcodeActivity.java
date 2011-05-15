@@ -151,11 +151,9 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		captureView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		
-        Log.d(TAG, "overlayProxy: " + overlayProxy);
         // set preview overlay
 		localOverlayProxy = overlayProxy;
 		overlayProxy = null; // clear the static object once we have a local reference
-        Log.d(TAG, "localOverlayProxy: " + localOverlayProxy);
         
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(captureView);
@@ -177,10 +175,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 
 		tiBarcodeActivity = this;
         //captureView.addView(viewfinderView);
-        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy);
-        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy.getView(this));
-        Log.d(TAG, "onResume localOverlayProxy: " + localOverlayProxy.getView(this).getNativeView());
-		captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         
         SurfaceView surfaceView = captureView.getPreviewView();
 		SurfaceHolder surfaceHolder = surfaceView.getHolder();
