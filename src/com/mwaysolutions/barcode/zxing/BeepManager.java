@@ -43,13 +43,13 @@ public final class BeepManager {
   
   public static String soundFileURL = null;
 
-  BeepManager(Activity activity) {
+  public BeepManager(Activity activity) {
     this.activity = activity;
     this.mediaPlayer = null;
     updatePrefs();
   }
 
-  void updatePrefs() {
+  public void updatePrefs() {
     playBeep = true;
     vibrate = true;
     if (playBeep && mediaPlayer == null) {
@@ -60,7 +60,7 @@ public final class BeepManager {
     }
   }
 
-  void playBeepSoundAndVibrate() {
+  public void playBeepSoundAndVibrate() {
     if (playBeep && mediaPlayer != null) {
       mediaPlayer.start();
     }
@@ -70,7 +70,7 @@ public final class BeepManager {
     }
   }
 
-  private static boolean shouldBeep(SharedPreferences prefs, Context activity) {
+  private static boolean shouldBeep(Context activity) {
     boolean shouldPlayBeep = true;
     if (shouldPlayBeep) {
       // See if sound settings overrides this
@@ -92,9 +92,8 @@ public final class BeepManager {
       }
     });
 
-    AssetFileDescriptor assetFileDescriptor = getAssets().openFd(soundFileURL);
-    //AssetFileDescriptor file = activity.getResources().openRawResourceFd(R.raw.beep);
     try {
+      AssetFileDescriptor file = activity.getAssets().openFd(soundFileURL);
       mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
       file.close();
       mediaPlayer.setVolume(BEEP_VOLUME, BEEP_VOLUME);

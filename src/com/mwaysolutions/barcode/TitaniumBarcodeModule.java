@@ -18,6 +18,8 @@
 
 package com.mwaysolutions.barcode;
 
+import com.mwaysolutions.barcode.zxing.BeepManager;
+
 import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollInvocation;
 import org.appcelerator.kroll.KrollModule;
@@ -28,6 +30,7 @@ import org.appcelerator.titanium.proxy.TiViewProxy;
 import org.appcelerator.titanium.util.Log;
 import org.appcelerator.titanium.util.TiActivityResultHandler;
 import org.appcelerator.titanium.util.TiActivitySupport;
+import org.appcelerator.titanium.util.TiConvert;
 import org.appcelerator.titanium.util.TiIntentWrapper;
 
 import android.app.Activity;
@@ -66,7 +69,7 @@ public class TitaniumBarcodeModule extends KrollModule {
 			TitaniumBarcodeActivity.overlayProxy = (TiViewProxy) options.get("overlay");
 		}
 		if (options.containsKey("sound")) {
-			BeepManager.soundFileURL = (String) invocation.getTiContext().resolveUrl(null, TiConvert.toString( options.get("sound") );
+			BeepManager.soundFileURL = (String) invocation.getTiContext().resolveUrl(null, TiConvert.toString( options.get("sound") ) );
 		}
 
         final Activity activity = invocation.getTiContext().getActivity();
