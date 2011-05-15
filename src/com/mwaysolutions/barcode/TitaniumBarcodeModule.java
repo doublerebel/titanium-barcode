@@ -65,8 +65,11 @@ public class TitaniumBarcodeModule extends KrollModule {
         if (options.containsKey("overlay")) {
 			TitaniumBarcodeActivity.overlayProxy = (TiViewProxy) options.get("overlay");
 		}
+		if (options.containsKey("sound")) {
+			BeepManager.soundFileURL = (String) invocation.getTiContext().resolveUrl(null, TiConvert.toString( options.get("sound") );
+		}
 
-		final Activity activity = invocation.getTiContext().getActivity();
+        final Activity activity = invocation.getTiContext().getActivity();
 		final TiActivitySupport activitySupport = (TiActivitySupport) activity;
 
 		final TiIntentWrapper barcodeIntent = new TiIntentWrapper(new Intent(activity, TitaniumBarcodeActivity.class));

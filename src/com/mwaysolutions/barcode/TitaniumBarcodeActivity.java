@@ -30,6 +30,7 @@ import com.mwaysolutions.barcode.constants.BarcodeColor;
 import com.mwaysolutions.barcode.constants.BarcodeString;
 import com.mwaysolutions.barcode.constants.Id;
 import com.mwaysolutions.barcode.views.CaptureView;
+import com.mwaysolutions.barcode.zxing.BeepManager;
 import com.mwaysolutions.barcode.zxing.CaptureActivityHandler;
 import com.mwaysolutions.barcode.zxing.Intents;
 import com.mwaysolutions.barcode.zxing.ViewfinderView;
@@ -116,6 +117,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	private Vector<BarcodeFormat> decodeFormats;
 	private String characterSet;
 	private CaptureView captureView;
+    private BeepManager beepManager;
     
     private TiViewProxy localOverlayProxy = null;
     
@@ -163,6 +165,8 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 
 		lastResult = null;
 		hasSurface = false;
+        
+        beepManager = new BeepManager(this);
 	}
 
 	/**
@@ -192,32 +196,11 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		}
 
 		Intent intent = getIntent();
-		//String action = intent == null ? null : intent.getAction();
 
-		//if (intent != null && action != null) {
-		//	if (action.equals(Intents.Scan.ACTION)) {
-				// Scan the formats the intent requested, and return the result
-				// to the calling activity.
-				source = Source.NATIVE_APP_INTENT;
-				decodeFormats = parseDecodeFormats(intent);
-				resetStatusView();
-//			} else {
-//				// Scan all formats and handle the results ourselves (launched
-//				// from Home).
-//                Log.d(TAG, "handling results selfishly");
-//				source = Source.NONE;
-//				decodeFormats = null;
-//				resetStatusView();
-//			}
-//			characterSet = intent.getStringExtra(Intents.Scan.CHARACTER_SET);
-//		} else {
-//			source = Source.NONE;
-//			decodeFormats = null;
-//			characterSet = null;
-//			if (lastResult == null) {
-//				resetStatusView();
-//			}
-//		}
+        source = Source.NATIVE_APP_INTENT;
+        decodeFormats = parseDecodeFormats(intent);
+        beepManager.updatePrefs();
+        resetStatusView();
 
 	}
 
@@ -317,6 +300,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 			// This is from history -- no saved barcode
 			handleDecodeInternally(rawResult);
 		} else {
+            beepManager.playBeepSoundAndVibrate();
 			drawResultPoints(barcode, rawResult);
 			switch (source) {
 			case NATIVE_APP_INTENT:
