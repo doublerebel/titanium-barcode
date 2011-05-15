@@ -33,7 +33,7 @@ public final class BeepManager {
 
   private static final String TAG = BeepManager.class.getSimpleName();
 
-  private static final float BEEP_VOLUME = 0.10f;
+  private static final float BEEP_VOLUME = 0.30f;
   private static final long VIBRATE_DURATION = 200L;
 
   private final Activity activity;
@@ -41,7 +41,8 @@ public final class BeepManager {
   private boolean playBeep;
   private boolean vibrate;
   
-  public static String soundFileURL = null;
+  public static String soundFilePath = null;
+  public static int soundVolume = -1;
 
   public BeepManager(Activity activity) {
     this.activity = activity;
@@ -93,10 +94,12 @@ public final class BeepManager {
     });
 
     try {
-      AssetFileDescriptor file = activity.getAssets().openFd(soundFileURL);
+      AssetFileDescriptor file = activity.getAssets().openFd(soundFilePath);
       mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
       file.close();
-      mediaPlayer.setVolume(BEEP_VOLUME, BEEP_VOLUME);
+      float beepVolume = BEEP_VOLUME;
+      if (soundVolume != -1) beepVolume = soundVolume / 10.0f;
+      mediaPlayer.setVolume(beepVolume, beepVolume);
       mediaPlayer.prepare();
     } catch (IOException ioe) {
       Log.w(TAG, ioe);

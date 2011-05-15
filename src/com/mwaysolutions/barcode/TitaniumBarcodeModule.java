@@ -69,7 +69,12 @@ public class TitaniumBarcodeModule extends KrollModule {
 			TitaniumBarcodeActivity.overlayProxy = (TiViewProxy) options.get("overlay");
 		}
 		if (options.containsKey("sound")) {
-			BeepManager.soundFileURL = (String) invocation.getTiContext().resolveUrl(null, TiConvert.toString( options.get("sound") ) );
+            String url = invocation.getTiContext().resolveUrl(null, TiConvert.toString( options.get("sound") ) );
+            String path = url.substring(TiConvert.ASSET_URL.length());
+			BeepManager.soundFilePath = path;
+		}
+        if (options.containsKey("soundVolume")) {
+            BeepManager.soundVolume = (int) TiConvert.toInt( options.get("soundVolume") );
 		}
 
         final Activity activity = invocation.getTiContext().getActivity();
