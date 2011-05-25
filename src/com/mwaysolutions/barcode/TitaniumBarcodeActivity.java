@@ -48,6 +48,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup.LayoutParams;
@@ -137,6 +138,13 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	 */
 	public Handler getHandler() {
 		return mHandler;
+	}
+    
+    /* prevent menu from crashing module */
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		return false;
 	}
 
 	/**
