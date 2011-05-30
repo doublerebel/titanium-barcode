@@ -28,6 +28,7 @@ import org.appcelerator.titanium.TiContext;
 import org.appcelerator.titanium.kroll.KrollCallback;
 import org.appcelerator.titanium.proxy.TiViewProxy;
 import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 import org.appcelerator.titanium.util.TiActivityResultHandler;
 import org.appcelerator.titanium.util.TiActivitySupport;
 import org.appcelerator.titanium.util.TiConvert;
@@ -48,7 +49,7 @@ import android.content.Intent;
 public class TitaniumBarcodeModule extends KrollModule {
 
 	private static final String LCAT = "TitaniumBarcodeModule";
-	private static final boolean DBG = true; // TiConfig.LOGD;
+	private static final boolean DBG = TiConfig.LOGD;
 	protected static final int UNKNOWN_ERROR = 0;
 
 	public TitaniumBarcodeModule(final TiContext tiContext) {
