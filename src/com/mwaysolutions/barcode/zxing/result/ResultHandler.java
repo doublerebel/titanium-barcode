@@ -1,7 +1,11 @@
 /*
- * Copyright (c) 2010 by M-Way Solutions GmbH
- * 
- *      http://www.mwaysolutions.com
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
+ *
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +20,10 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing.result;
+package com.doublerebel.barcode.zxing.result;
 
-import android.util.Log;
+import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ParsedResult;
@@ -27,18 +32,23 @@ import com.google.zxing.client.result.ResultParser;
 /**
  * Wrapper class for results from barcode scanner
  * 
- * @author sven@roothausen.de(Sven Pfleiderer)
+ * @author sven@roothausen.de (Sven Pfleiderer)
+ * @author charles@doublerebel.com (Charles Phillips)
  *
  */
 
 public class ResultHandler {
 
-	private final ParsedResult mResult;
+    private static final String LCAT = "TitaniumBarcodeResultHandler";
+	private static final boolean DBG = TiConfig.LOGD;
 
+   	private final ParsedResult mResult;
 
 	public ResultHandler(final Result rawResult) {
 		this.mResult = parseResult(rawResult);
-		log("Got new data: " + rawResult);
+		if (DBG) {
+            Log.d(LCAT, "Got new data: " + rawResult);
+        }
 	}
 
 	public Object getType() {
@@ -47,10 +57,6 @@ public class ResultHandler {
 
 	public CharSequence getDisplayContents() {
 		return mResult.getDisplayResult();
-	}
-
-	private void log(String msg) {
-		Log.d("ResultHandler", msg);
 	}
 
 	private ParsedResult parseResult(Result rawResult) {

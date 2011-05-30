@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.doublerebel.barcode.zxing;
 
 import com.google.zxing.ResultPoint;
-import com.mwaysolutions.barcode.camera.CameraManager;
-import com.mwaysolutions.barcode.constants.BarcodeColor;
+import com.doublerebel.barcode.camera.CameraManager;
+import com.doublerebel.barcode.constants.BarcodeColor;
 
 import android.content.Context;
 import android.graphics.Bitmap;

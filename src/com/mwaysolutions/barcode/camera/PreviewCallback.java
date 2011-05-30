@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.camera;
+package com.doublerebel.barcode.camera;
 
 import android.graphics.Point;
 import android.hardware.Camera;

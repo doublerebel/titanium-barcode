@@ -1,7 +1,15 @@
 /*
- * Copyright (c) 2010 by M-Way Solutions GmbH
- * 
- *      http://www.mwaysolutions.com
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
+ *
+ *
+ * Based on Titanium Barcode Module 0.2
+ * Copyright (c) 2011 by M-Way Solutions GmbH
+ * http://www.mwaysolutions.com
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +24,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode;
+package com.doublerebel.barcode;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -24,17 +32,19 @@ import java.util.regex.Pattern;
 
 import org.appcelerator.titanium.TiBaseActivity;
 import org.appcelerator.titanium.proxy.TiViewProxy;
+import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 
-import com.mwaysolutions.barcode.camera.CameraManager;
-import com.mwaysolutions.barcode.constants.BarcodeColor;
-import com.mwaysolutions.barcode.constants.BarcodeString;
-import com.mwaysolutions.barcode.constants.Id;
-import com.mwaysolutions.barcode.views.CaptureView;
-import com.mwaysolutions.barcode.zxing.BeepManager;
-import com.mwaysolutions.barcode.zxing.CaptureActivityHandler;
-import com.mwaysolutions.barcode.zxing.Intents;
-import com.mwaysolutions.barcode.zxing.ViewfinderView;
-import com.mwaysolutions.barcode.zxing.result.ResultHandler;
+import com.doublerebel.barcode.camera.CameraManager;
+import com.doublerebel.barcode.constants.BarcodeColor;
+import com.doublerebel.barcode.constants.BarcodeString;
+import com.doublerebel.barcode.constants.Id;
+import com.doublerebel.barcode.views.CaptureView;
+import com.doublerebel.barcode.zxing.BeepManager;
+import com.doublerebel.barcode.zxing.CaptureActivityHandler;
+import com.doublerebel.barcode.zxing.Intents;
+import com.doublerebel.barcode.zxing.ViewfinderView;
+import com.doublerebel.barcode.zxing.result.ResultHandler;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,7 +56,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.SurfaceHolder;
@@ -65,7 +75,8 @@ import com.google.zxing.ResultPoint;
  * CameraPreview example included in the Android SDK.
  * 
  * @author dswitkin@google.com (Daniel Switkin)
- * @author sven@roothausen.de(Sven Pfleiderer)
+ * @author sven@roothausen.de (Sven Pfleiderer)
+ * @author charles@doublerebel.com (Charles Phillips)
  */
 
 public final class TitaniumBarcodeActivity extends TiBaseActivity implements
@@ -74,6 +85,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	public static final String EXTRA_RESULT = "scanResult";
 
 	private static final String TAG = "CaptureActivity";
+    private static final boolean DBG = TiConfig.LOGD;
 	private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
 	static final Vector<BarcodeFormat> PRODUCT_FORMATS;
@@ -222,7 +234,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 				}
 			} catch (IllegalArgumentException iae) {
 				// ignore it then
-				Log.d(TAG, iae.toString());
+                Log.w(TAG, iae.toString());
 			}
 		}
 		String decodeMode = intent.getStringExtra(Intents.Scan.MODE);
@@ -368,7 +380,9 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		Intent intent = new Intent();
 		intent.putExtra(EXTRA_RESULT, scanResult);
 		tiBarcodeActivity.setResult(Activity.RESULT_OK, intent);
-		Log.i(TAG, "Set result, finish()");
+		if (DBG) {
+            Log.d(TAG, "Set result, finish()");
+        }
 		tiBarcodeActivity.finish();
 	}
 

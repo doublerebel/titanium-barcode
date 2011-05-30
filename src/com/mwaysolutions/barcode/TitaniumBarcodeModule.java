@@ -1,7 +1,15 @@
 /*
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
+ *
+ *
+ * Based on Titanium Barcode Module 0.2
  * Copyright (c) 2011 by M-Way Solutions GmbH
- * 
- *      http://www.mwaysolutions.com
+ * http://www.mwaysolutions.com
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +24,9 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode;
+package com.doublerebel.barcode;
 
-import com.mwaysolutions.barcode.zxing.BeepManager;
+import com.doublerebel.barcode.zxing.BeepManager;
 
 import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollInvocation;
@@ -42,10 +50,11 @@ import android.content.Intent;
  * library from an appcelerator application
  * 
  * @author sven@roothausen.de (Sven Pfleiderer)
+ * @author charles@doublerebel.com (Charles Phillips)
  * 
  */
 
-@Kroll.module(name = "TitaniumBarcode", id = "com.mwaysolutions.barcode")
+@Kroll.module(name = "TitaniumBarcode", id = "com.doublerebel.barcode")
 public class TitaniumBarcodeModule extends KrollModule {
 
 	private static final String LCAT = "TitaniumBarcodeModule";

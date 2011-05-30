@@ -1,7 +1,15 @@
 /*
- * Copyright (c) 2010 by M-Way Solutions GmbH
- * 
- *      http://www.mwaysolutions.com
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
+ *
+ *
+ * Based on Titanium Barcode Module 0.2
+ * Copyright (c) 2011 by M-Way Solutions GmbH
+ * http://www.mwaysolutions.com
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +24,18 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.constants;
+package com.doublerebel.barcode.constants;
 
 /**
  * String constants to prevent hardcoded strings for UI-stuff
  * 
- * @author sven@roothausen.de(Sven Pfleiderer)
+ * @author sven@roothausen.de (Sven Pfleiderer)
+ * @author charles@doublerebel.com (Charles Phillips)
  */
 
 public class BarcodeString {
-	public static final String APP_NAME = "Barcode Scanner";
+	public static final String APP_NAME = "Titanium Barcode Scanner";
 	public static final String BUTTON_OK = "Ok";
 	public static final String BUTTON_CANCEL = "Cancel";
-	public static final String MSG_CAMERA_FRAMEWORK_BUG = "Sorry, the Android camera encountered a problem. bYou may need to restart the device.";
+	public static final String MSG_CAMERA_FRAMEWORK_BUG = "Sorry, the Android camera encountered a problem. You may need to restart the device.";
 }

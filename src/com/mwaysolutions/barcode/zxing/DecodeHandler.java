@@ -1,6 +1,12 @@
 /*
- * Copyright (C) 2010 ZXing authors
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
  *
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +20,10 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.doublerebel.barcode.zxing;
+
+import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -22,21 +31,21 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.mwaysolutions.barcode.camera.CameraManager;
-import com.mwaysolutions.barcode.TitaniumBarcodeActivity;
-import com.mwaysolutions.barcode.constants.Id;
+import com.doublerebel.barcode.camera.CameraManager;
+import com.doublerebel.barcode.TitaniumBarcodeActivity;
+import com.doublerebel.barcode.constants.Id;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import java.util.Hashtable;
 
 final class DecodeHandler extends Handler {
 
   private static final String TAG = DecodeHandler.class.getSimpleName();
+  private static final boolean DBG = TiConfig.LOGD;
 
   private final TitaniumBarcodeActivity activity;
   private final MultiFormatReader multiFormatReader;
@@ -83,7 +92,9 @@ final class DecodeHandler extends Handler {
 
     if (rawResult != null) {
       long end = System.currentTimeMillis();
-      Log.d(TAG, "Found barcode (" + (end - start) + " ms):\n" + rawResult.toString());
+      if (DBG) {
+        Log.d(TAG, "Found barcode (" + (end - start) + " ms):\n" + rawResult.toString());
+      }
       Message message = Message.obtain(activity.getHandler(), Id.DECODE_SUCCEEDED, rawResult);
       Bundle bundle = new Bundle();
       bundle.putParcelable(DecodeThread.BARCODE_BITMAP, source.renderCroppedGreyscaleBitmap());

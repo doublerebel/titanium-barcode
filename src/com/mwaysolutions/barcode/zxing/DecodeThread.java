@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.doublerebel.barcode.zxing;
 
-import com.mwaysolutions.barcode.TitaniumBarcodeActivity;
+import com.doublerebel.barcode.TitaniumBarcodeActivity;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;

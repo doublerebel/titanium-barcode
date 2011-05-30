@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.camera;
+package com.doublerebel.barcode.camera;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -25,7 +25,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import com.mwaysolutions.barcode.zxing.PlanarYUVLuminanceSource;
+import com.doublerebel.barcode.zxing.PlanarYUVLuminanceSource;
 
 import java.io.IOException;
 

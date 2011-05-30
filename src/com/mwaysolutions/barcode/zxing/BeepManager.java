@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.doublerebel.barcode.zxing;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,6 +1,12 @@
 /*
- * Copyright (C) 2008 ZXing authors
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
  *
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,13 +20,16 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.zxing;
+package com.doublerebel.barcode.zxing;
+
+import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.mwaysolutions.barcode.camera.CameraManager;
-import com.mwaysolutions.barcode.TitaniumBarcodeActivity;
-import com.mwaysolutions.barcode.constants.Id;
+import com.doublerebel.barcode.camera.CameraManager;
+import com.doublerebel.barcode.TitaniumBarcodeActivity;
+import com.doublerebel.barcode.constants.Id;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +38,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import java.util.Vector;
 
@@ -37,10 +45,12 @@ import java.util.Vector;
  * This class handles all the messaging which comprises the state machine for capture.
  *
  * @author dswitkin@google.com (Daniel Switkin)
+ * @author charles@doublerebel.com (Charles Phillips)
  */
 public final class CaptureActivityHandler extends Handler {
 
   private static final String TAG = CaptureActivityHandler.class.getSimpleName();
+  private static final boolean DBG = TiConfig.LOGD;
 
   private final TitaniumBarcodeActivity activity;
   private final DecodeThread decodeThread;
@@ -79,11 +89,15 @@ public final class CaptureActivityHandler extends Handler {
         }
         break;
       case Id.RESTART_PREVIEW:
-        Log.d(TAG, "Got restart preview message");
+        if (DBG) {
+            Log.d(TAG, "Got restart preview message");
+        }
         restartPreviewAndDecode();
         break;
       case Id.DECODE_SUCCEEDED:
-        Log.d(TAG, "Got decode succeeded message");
+        if (DBG) {
+            Log.d(TAG, "Got decode succeeded message");
+        }
         state = State.SUCCESS;
         Bundle bundle = message.getData();
         Bitmap barcode = bundle == null ? null :
@@ -96,7 +110,9 @@ public final class CaptureActivityHandler extends Handler {
         CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), Id.DECODE);
         break;
       case Id.RETURN_SCAN_RESULT:
-        Log.d(TAG, "Got return scan result message");
+        if (DBG) {
+            Log.d(TAG, "Got return scan result message");
+        }
         activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
         activity.finish();
         break;

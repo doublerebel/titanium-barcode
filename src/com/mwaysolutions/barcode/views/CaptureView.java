@@ -1,7 +1,15 @@
 /*
- * Copyright (c) 2010 by M-Way Solutions GmbH
- * 
- *      http://www.mwaysolutions.com
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
+ *
+ *
+ * Based on Titanium Barcode Module 0.2
+ * Copyright (c) 2011 by M-Way Solutions GmbH
+ * http://www.mwaysolutions.com
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +24,9 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.views;
+package com.doublerebel.barcode.views;
 
-import com.mwaysolutions.barcode.zxing.ViewfinderView;
+import com.doublerebel.barcode.zxing.ViewfinderView;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.SurfaceView;

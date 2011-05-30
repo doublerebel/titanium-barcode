@@ -1,6 +1,12 @@
 /*
- * Copyright (C) 2010 ZXing authors
+ * Copyright (c) 2011 by Double Rebel
+ * http://www.doublerebel.com
  *
+ *
+ * Based on Zxing pre-3.6 (SVN Trunk Rev 1770)
+ * Copyright (C) 2010 ZXing authors
+ * http://code.google.com/p/zxing/
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,16 +20,19 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.camera;
+package com.doublerebel.barcode.camera;
+
+import org.appcelerator.titanium.util.Log;
+import org.appcelerator.titanium.util.TiConfig;
 
 import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 final class AutoFocusCallback implements Camera.AutoFocusCallback {
 
   private static final String TAG = AutoFocusCallback.class.getSimpleName();
+  private static final boolean DBG = TiConfig.LOGD;
 
   private static final long AUTOFOCUS_INTERVAL_MS = 1500L;
 
@@ -44,7 +53,9 @@ final class AutoFocusCallback implements Camera.AutoFocusCallback {
       autoFocusHandler.sendMessageDelayed(message, AUTOFOCUS_INTERVAL_MS);
       autoFocusHandler = null;
     } else {
-      Log.d(TAG, "Got auto-focus callback, but no handler for it");
+        if (DBG) {
+            Log.d(TAG, "Got auto-focus callback, but no handler for it");
+        }
     }
   }
 

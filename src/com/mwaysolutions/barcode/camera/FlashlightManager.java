@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mwaysolutions.barcode.camera;
+package com.doublerebel.barcode.camera;
 
 import android.os.IBinder;
 import android.util.Log;
