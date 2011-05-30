@@ -8,9 +8,9 @@ TODO: Enter your module description here
 
 To access this module from JavaScript, you would do the following:
 
-	var titanium-barcode = require("com.mwaysolutions.barcode");
+	var titaniumBarcode = require("com.doublerebel.barcode");
 
-The titanium-barcode variable is a reference to the Module object.	
+The titaniumBarcode variable is a reference to the Module object.	
 
 ## Reference
 

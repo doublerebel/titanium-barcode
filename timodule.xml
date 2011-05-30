@@ -6,13 +6,14 @@
 		<manifest>
 			<uses-permission android:name="android.permission.CAMERA" />
 			<uses-permission android:name="android.permission.FLASHLIGHT" />
+            <uses-permission android:name="android.permission.VIBRATE"/>
 
 			<supports-screens android:smallScreens="true"
 				android:normalScreens="true" android:largeScreens="true"
 				android:anyDensity="true" />
 
 			<application>
-				<activity android:name="com.mwaysolutions.barcode.TitaniumBarcodeActivity"
+				<activity android:name="com.doublerebel.barcode.TitaniumBarcodeActivity"
 					android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 			</application>

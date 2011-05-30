@@ -12,7 +12,7 @@ var label = Ti.UI.createLabel();
 window.add(label);
 window.open();
 
-var titaniumBarcode = require('com.mwaysolutions.barcode');
+var titaniumBarcode = require('com.doublerebel.barcode');
 
 Titanium.Barcode.scan({
   success:function(data) {
