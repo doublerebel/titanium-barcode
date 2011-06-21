@@ -86,12 +86,17 @@ public class TitaniumBarcodeModule extends KrollModule {
         if (options.containsKey("soundVolume")) {
             BeepManager.soundVolume = (int) TiConvert.toInt( options.get("soundVolume") );
 		}
-
+		
         final Activity activity = invocation.getTiContext().getActivity();
 		final TiActivitySupport activitySupport = (TiActivitySupport) activity;
 
 		final TiIntentWrapper barcodeIntent = new TiIntentWrapper(new Intent(activity, TitaniumBarcodeActivity.class));
         //barcodeIntent.getIntent().setClass(invocation.getTiContext().getAndroidContext().getBaseContext(), TitaniumBarcodeActivity.class);
+		
+		if (options.containsKey("scanFormats")) {
+            String scanFormats = (String) TiConvert.toString( options.get("scanFormats") );
+			barcodeIntent.getIntent().putExtra("SCAN_FORMATS", scanFormats);
+		}
 		barcodeIntent.setWindowId(TiIntentWrapper.createActivityName("SCANNER"));
 
 		BarcodeResultHandler resultHandler = new BarcodeResultHandler();
