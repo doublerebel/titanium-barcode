@@ -199,7 +199,9 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 
 		tiBarcodeActivity = this;
         //captureView.addView(viewfinderView);
-        captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		if (localOverlayProxy) {
+			captureView.addView(localOverlayProxy.getView(this).getNativeView(), new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		}
         
         SurfaceView surfaceView = captureView.getPreviewView();
 		SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -256,7 +258,9 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 	protected void onPause() {
 		super.onPause();
         //captureView.removeView(viewfinderView);
-		captureView.removeView(localOverlayProxy.getView(this).getNativeView());
+		if (localOverlayProxy) {
+			captureView.removeView(localOverlayProxy.getView(this).getNativeView());
+		}
 
 		if (mHandler != null) {
 			mHandler.quitSynchronously();
