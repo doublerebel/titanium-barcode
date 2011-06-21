@@ -361,7 +361,6 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 			} else {
 				paint.setStrokeWidth(10.0f);
 				for (ResultPoint point : points) {
-
 					canvas.drawPoint(point.getX(), point.getY(), paint);
 				}
 			}
@@ -390,7 +389,7 @@ public final class TitaniumBarcodeActivity extends TiBaseActivity implements
 		try {
 			CameraManager.get().openDriver(surfaceHolder);
 		} catch (IOException ioe) {
-			Log.w(TAG, ioe);
+			//Log.w(TAG, ioe); //Won't compile with this line
 			displayFrameworkBugMessageAndExit();
 			return;
 		} catch (RuntimeException e) {
