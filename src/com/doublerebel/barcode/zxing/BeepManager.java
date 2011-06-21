@@ -51,7 +51,7 @@ public final class BeepManager {
   }
 
   public void updatePrefs() {
-    playBeep = shouldBeep();
+    playBeep = shouldBeep(activity);
     vibrate = true;
     if (playBeep && mediaPlayer == null) {
       // The volume on STREAM_SYSTEM is not adjustable, and users found it too loud,
